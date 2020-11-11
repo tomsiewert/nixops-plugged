@@ -6,14 +6,14 @@ authors = ["adisbladis <adisbladis@gmail.com>", "typetetris <ericwolf42@gmail.co
 
 [tool.poetry.dependencies]
 python = "~3.8"
-nixops = {git = "https://github.com/NixOS/nixops.git", rev = "master" }
-nixops-aws = {git = "https://github.com/NixOS/nixops-aws.git", rev = "master"}
-#nixops-digitalocean = {git = "https://github/nix-community/nixops-digitalocean.git", rev = "master" }
-nixops-gcp = {git = "https://github.com/nix-community/nixops-gce.git", rev = "master"}
-nixops-hetznercloud = {git = "https://github.com/lukebfox/nixops-hetznercloud", rev = "master"}
-#nixops-proxmox = {git= "https://github.com/RaitoBezarius/nixops-proxmox", rev = "master"}
-nixops-virtd = {git = "https://github.com/nix-community/nixops-libvirtd.git", rev = "master"}
-nixopsvbox = {git = "https://github.com/nix-community/nixops-vbox.git", rev = "master"}
+nixops = {git = "https://github.com/lukebfox/nixops.git", rev = "statedict-store-dict" }
+#nixops-aws = {git = "https://github.com/NixOS/nixops-aws.git", rev = "master"}
+#nixops-digitalocean = {git = "https://github.com/nix-community/nixops-digitalocean.git", rev = "master" }
+#nixops-gcp = {git = "https://github.com/nix-community/nixops-gce.git", rev = "master"}
+nixops-hetznercloud = {git = "https://github.com/lukebfox/nixops-hetznercloud.git", rev = "master"}
+#nixops-proxmox = {git= "https://github.com/RaitoBezarius/nixops-proxmox.git", rev = "master"}
+#nixops-virtd = {git = "https://github.com/nix-community/nixops-libvirtd.git", rev = "master"}
+#nixopsvbox = {git = "https://github.com/nix-community/nixops-vbox.git", rev = "master"}
 
 [tool.poetry.dev-dependencies]
 

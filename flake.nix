@@ -96,24 +96,24 @@
 
     # A nixops with all plugins.
     defaultPackage = interpreter.pkgs.nixops.withPlugins (ps: [
-      ps.nixops-aws
+      # ps.nixops-aws
       # ps.nixops-digitalocean
-      ps.nixops-gcp
+      # ps.nixops-gcp
       ps.nixops-hetznercloud
       # ps.nixops-proxmox
-      ps.nixops-virtd
-      ps.nixopsvbox
+      # ps.nixops-virtd
+      # ps.nixopsvbox
     ]);
 
     # A nixops for each plugin for those who just want a specific one.
     packages = {
-      nixops-aws = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-aws]);
-      nixops-gcp = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-gcp]);
-      #nixops-digitalocean = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-digitalocean]);
+      # nixops-aws = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-aws]);
+      # nixops-gcp = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-gcp]);
+      # nixops-digitalocean = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-digitalocean]);
       nixops-hetznercloud = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-hetznercloud]);
-      #nixops-proxmox = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-proxmox]);
-      nixops-virtd = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-virtd]);
-      nixopsvbox = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixopsvbox]);
+      # nixops-proxmox = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-proxmox]);
+      # nixops-virtd = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixops-virtd]);
+      # nixopsvbox = interpreter.pkgs.nixops.withPlugins (ps: [ps.nixopsvbox]);
     };
 
     # Can use this function to mix plugins as you see fit.
