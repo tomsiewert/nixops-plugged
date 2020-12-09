@@ -19,7 +19,7 @@ You can refer to this flake as input for another flake, i.e. inside the developm
       nixopsConfigurations.default = { ... }; # your network definition
     } // utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs { inherit system; };
-    in
+    in {
       devShell = pkgs.mkShell {
         nativeBuildInputs = [ nixops-plugged.defaultPackage.${system} ];
       };
