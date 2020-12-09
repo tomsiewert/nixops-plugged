@@ -1,6 +1,6 @@
-# NixOps Plugged
+# NixOps 2.0 with batteries included.
 
-NixOps 2.0 with batteries included. Aims to include any compatible plugins as they become available.
+This flake aims to include any compatible plugins as they become available.
 
 ## Use from the command line.
 Clone this repository and you can run nixops from inside the project root. This flake exports a Nix App, so running `nix run . -- <args>` is equivalent to running `nixops <args>`.
