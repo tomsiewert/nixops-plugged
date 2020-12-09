@@ -15,7 +15,7 @@ You can refer to this flake as input for another flake, i.e. inside the developm
   inputs.nixops-plugged.url = "github:lukebfox/nixops-plugged";
   inputs.utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, nixops-plugged, utils, ... }:
+  outputs = { self, nixpkgs, nixops-plugged, utils, ... }: {
       nixopsConfigurations.default = { ... }; # your network definition
     } // utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs { inherit system; };
