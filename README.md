@@ -48,4 +48,7 @@ To get a version of nixops with only the plugins you want, I would recommend for
 ```
 You can run `nix run . -- list-plugins` to verify your changes.
 
+## Use from legacy nix.
+The legacy commands `nix-build` and `nix-shell` should still work thanks to the compatability shim from [flake-compat](https://github.com/edolstra/flake-compat), although I don't use these so YMMV.
+
 ---
