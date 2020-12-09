@@ -26,7 +26,7 @@ You can refer to this flake as input for another flake, i.e. inside the developm
     });
 }
 ```
-While inside the development shell for your flake you will now have access to a fully featured nixops.
+While inside the development shell for your flake you will now have access to a fully(ish) featured nixops.
 
 | Plugins | Included |
 |:---|:---:|
