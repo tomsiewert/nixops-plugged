@@ -1,5 +1,5 @@
-{ pkgs ? import <nixpkgs> {}
-}:
+pkgs:
+
 let
 
   inherit (pkgs) lib;
@@ -21,7 +21,7 @@ let
           # This is done because we only want /share for the actual plugins
           # and not for e.g. the python interpreter and other dependencies.
           manEnv = pkgs.symlinkJoin {
-            name = "${finalDrv.pname}-with-plugins-share-${finalDrv.version}";
+            name = "${finalDrv.pname}-plugged-share-${finalDrv.version}";
             preferLocalBuild = true;
             allowSubstitutes = false;
             paths = plugins;
@@ -37,7 +37,7 @@ let
           };
         in
           pkgs.runCommandNoCC
-            "${finalDrv.pname}-with-plugins-${finalDrv.version}"
+            "${finalDrv.pname}-plugged-${finalDrv.version}"
             { inherit (finalDrv) passthru meta; }
             ''
               mkdir -p $out/bin
@@ -75,14 +75,27 @@ let
         };
       });
     };
+
+    # These are included in the latest poetry2nix overlay.
+
     jsonpickle = prev.jsonpickle.overridePythonAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs ++ [final.toml];
     });
-    #libvirt-python = prev.libvirt-python.overridePythonAttrs (old: {
-    #  format =  "pyproject";
-    #  nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.pkgconfig ];
-    #  propogatedBuildInputs = [ pkgs.libvirt ];
+
+    # https://github.com/nix-community/poetry2nix/issues/218
+    packaging = prev.packaging.overridePythonAttrs({buildInputs ? [], ...}: {
+      format = "pyproject";
+      buildInputs = buildInputs ++ [ final.flit-core ];
+    });
+
+    # https://github.com/nix-community/poetry2nix/issues/208
+    #typeguard = prev.typeguard.overridePythonAttrs (old: {
+    #  postPatch = ''
+    #    substituteInPlace setup.py \
+    #      --replace 'setup()' 'setup(version="${old.version}")'
+    #  '';
     #});
+
   });
 
 in {

@@ -1,6 +1,32 @@
 # NixOps Plugged
 
-Flakified version of [nixops-with-plugins](https://github.com/typetetris/nixops-with-plugins/) by @typetetris.
+NixOps 2.0 with batteries included. Aims to include any compatible plugins as they become available.
+
+## Use from the command line.
+Clone this repository and you can run nixops from inside the project root. This flake exports a Nix App, so running `nix run . -- <args>` is equivalent to running `nixops <args>`.
+
+## Use as a flake input.
+You can refer to this flake as input for another flake, i.e. inside the development environment for some flake packaging a NixOps network.
+```nix
+{
+  description = "Your awesome flake";
+
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixops-plugged.url = "github:lukebfox/nixops-plugged";
+  inputs.utils.url = "github:numtide/flake-utils";
+
+  outputs = { self, nixpkgs, nixops-plugged, utils, ... }:
+      nixopsConfigurations.default = { ... }; # your network definition
+    } // utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs { inherit system; };
+    in
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = [ nixops-plugged.defaultPackage.${system} ];
+      };
+    });
+}
+```
+While inside the development shell for your flake you will now have access to a fully featured nixops.
 
 | Plugins | Included |
 |:---|:---:|
@@ -9,50 +35,17 @@ Flakified version of [nixops-with-plugins](https://github.com/typetetris/nixops-
 | GCE           | :heavy_check_mark: |
 | Hetzner Robot | :x: |
 | Hetzner Cloud | :heavy_check_mark: |
-| Proxmox       | :heavy_check_mark: |
-| Virtd         | :heavy_check_mark: |
+| Proxmox       | :x: |
+| Virtd         | :x: |
 | VBox          | :heavy_check_mark: |
 
-You can refer to this flake as input for another flake, i.e. inside the development environment for a flake packaging a NixOps network.
-```nix
-{
-  description = "Your awesome flake";
-  
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.nixops-plugged.url = "github:lukebfox/nixops-plugged";
-  inputs.utils.url = "github:numtide/flake-utils";
-  
-  outputs = {self, nixpkgs, nixops-plugged, utils, ...}:
-    let pkgs = import nixpkgs { inherit system; };
-    in {
-      nixopsConfigurations.default = { ... }; # your network definition
-    } // utils.lib.eachDefaultSystem (system: {
-      devShell = pkgs.mkShell {
-        nativeBuildInputs = [ nixops-plugged.defaultPackage.${system} ];
-      };
-    });
-}
+To get a version of nixops with only the plugins you want, I would recommend forking this and following the instructions:
+```bash
+λ nix develop
+λ vim pyproject.toml # add plugin to dependencies
+λ vim flake.nix      # add plugin to defaultPackage and/or packages
+λ poetry lock
 ```
-
-To get a version of nixops with only the plugins you want, I would recommend forking this and following the instructions.
-It is packages as a flake anticipating the coming flake app
-
-Pinned nixpkgs version, so you can just use `default.nix` to build it or include
-it somewhere else.
-
-Pinned nixpkgs should not imply, you have to use the nixpkgs version this was
-build with, anywhere else. It is just a python app being build and after
-that `nixops` should pick up, which `nixpkgs` to use the usual way it always does.
-
-The general steps to add a plugin:
-
-Install poetry in some way.
-
-Add your plugin to `pyproject.toml` and in `defaultPackage`.
-
-Run `poetry lock`. If you made any errors editing `pyproject.toml` it should
-tell you.
-
-Run `nix build`.
+You can run `nix run . -- list-plugins` to verify your changes.
 
 ---

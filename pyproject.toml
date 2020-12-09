@@ -12,7 +12,7 @@ nixops-digitalocean = {git = "https://github.com/nix-community/nixops-digitaloce
 nixops-gcp = {git = "https://github.com/nix-community/nixops-gce.git", rev = "master"}
 nixops-hetznercloud = {git = "https://github.com/lukebfox/nixops-hetznercloud.git", rev = "master"}
 #nixops-proxmox = {git= "https://github.com/RaitoBezarius/nixops-proxmox.git", rev = "master"}
-nixops-virtd = {git = "https://github.com/nix-community/nixops-libvirtd.git", rev = "master"}
+#nixops-virtd = {git = "https://github.com/nix-community/nixops-libvirtd.git", rev = "master"}
 nixopsvbox = {git = "https://github.com/nix-community/nixops-vbox.git", rev = "master"}
 
 [tool.poetry.dev-dependencies]
