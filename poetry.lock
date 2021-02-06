@@ -160,7 +160,7 @@ typing-extensions = "^3.7.4"
 [package.source]
 type = "git"
 url = "https://github.com/NixOS/nixops.git"
-reference = "faed0635d24e93f38046af58fb7715327de28e39"
+reference = "1ed5a091bc52de6c91319f446f833018a1cb326e"
 
 [[package]]
 name = "nixops-aws"
@@ -238,7 +238,7 @@ typing-extensions = "^3.7.4"
 [package.source]
 type = "git"
 url = "https://github.com/lukebfox/nixops-hetznercloud.git"
-reference = "26ea2eedb0bc054e93d9878b7fae3382329ae14a"
+reference = "474137174904b6b507ff0249539836f7cf21b996"
 
 [[package]]
 name = "nixopsvbox"
