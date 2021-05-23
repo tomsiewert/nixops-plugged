@@ -30,14 +30,14 @@ While inside the development shell for your flake you will now have access to a 
 
 | Plugins | Included |
 |:---|:---:|
-| AWS           | :heavy_check_mark: |
-| DigitalOcean  | :heavy_check_mark: |
-| GCE           | :heavy_check_mark: |
-| Hetzner Robot | :x: |
-| Hetzner Cloud | :heavy_check_mark: |
-| Proxmox       | :x: |
-| Virtd         | :x: |
-| VBox          | :heavy_check_mark: |
+| [AWS][1]           | :heavy_check_mark: |
+| [DigitalOcean][2]  | :heavy_check_mark: |
+| [GCE][3]           | :heavy_check_mark: |
+| [Hetzner Cloud][4] | :heavy_check_mark: |
+| [VBox][5]          | :heavy_check_mark: |
+| [Hetzner Robot][6] | :x: |
+| [Proxmox][7]       | :x: |
+| [Virtd][8]         | :x: |
 
 To get a version of nixops with only the plugins you want, I would recommend forking this and following the instructions:
 ```bash
@@ -52,3 +52,11 @@ You can run `nix run . -- list-plugins` to verify your changes.
 The legacy commands `nix-build` and `nix-shell` should still work thanks to the compatability shim from [flake-compat](https://github.com/edolstra/flake-compat), although I don't use these so YMMV.
 
 ---
+[1]: https://github.com/NixOS/nixops-aws
+[2]: https://github.com/nix-community/nixops-digitalocean
+[3]: https://github.com/nix-community/nixops-gce
+[4]: https://github.com/lukebfox/nixops-hetznercloud
+[5]: https://github.com/nix-community/nixops-vbox
+[6]: https://github.com/NixOS/nixops-hetzner
+[7]: https://github.com/RaitoBezarius/nixops-proxmox
+[8]: https://github.com/nix-community/nixops-libvirtd
