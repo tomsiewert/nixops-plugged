@@ -39,7 +39,7 @@ If you want to mix and match from any supported plugins then use this function
 ```
 devShell = pkgs.mkShell {
   nativeBuildInputs = [ 
-    (nixops-plugged.lib.withPlugins (ps: [ps.nixops-aws])
+    (nixops-plugged.lib.withPlugins (ps: [ps.nixops-aws ps.nixops-hetznercloud])
   ];
 };
 ```
