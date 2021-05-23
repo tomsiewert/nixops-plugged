@@ -38,6 +38,8 @@
         nixops-hetznercloud = nixops.withPlugins (ps: [ps.nixops-hetznercloud]);
         nixopsvbox          = nixops.withPlugins (ps: [ps.nixopsvbox]);
       };
+      
+      lib.withPlugins = nixops.withPlugins;
 
       devShell = pkgs.mkShell {
         buildInputs = [
