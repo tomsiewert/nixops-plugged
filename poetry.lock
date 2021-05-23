@@ -246,7 +246,7 @@ typing-extensions = "^3.7.4"
 type = "git"
 url = "https://github.com/lukebfox/nixops-hetznercloud.git"
 reference = "master"
-resolved_reference = "cdbffb4cc7c2ace9944d3e64fe9e7a6e1da6e38a"
+resolved_reference = "1376830b676a595c07777fe374c07d8d4ed0cfac"
 
 [[package]]
 name = "nixopsvbox"
@@ -410,7 +410,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8"
-content-hash = "a0d5f843ea01d98b43631daae4c6d6779b73e3c0899f7782bcb298c648ec7773"
+content-hash = "29cc9b13975124bce25d0e5443b6951462c99035b1a3f28f841311b308933e33"
 
 [metadata.files]
 apache-libcloud = [
