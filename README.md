@@ -31,7 +31,19 @@ While inside the development shell for your flake you will now have access to a 
 λ nix develop
 λ nixops list-plugins
 ```
-If you only care about one plugin, this flake additionally exports packages for this use case, i.e `nixops-plugged.packages.nixops-aws` to get a `nixops` with the `nixops-aws` plugin.
+If you only care about one plugin, this flake exports packages for this use case, i.e `nixops-plugged.packages.nixops-aws` to get a `nixops` with the `nixops-aws` plugin.
+
+##### `withPlugins`
+
+If you want to mix and match from any supported plugins then use this function
+```
+devShell = pkgs.mkShell {
+  nativeBuildInputs = [ 
+    (nixops-plugged.lib.withPlugins (ps: [ps.nixops-aws])
+  ];
+};
+```
+## Supported plugins (wip)
 
 | Plugins | Included |
 |:---|:---:|
@@ -44,7 +56,7 @@ If you only care about one plugin, this flake additionally exports packages for 
 | [Proxmox][7]       | :x: |
 | [Virtd][8]         | :x: |
 
-To get a version of nixops with *exactly* the plugins you want, no more and no less, I would recommend forking this and following the instructions:
+Adding new plugins goes like this:
 ```bash
 λ nix develop
 λ vim pyproject.toml # add plugin to dependencies
