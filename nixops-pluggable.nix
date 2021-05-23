@@ -81,13 +81,11 @@ let
     jsonpickle = prev.jsonpickle.overridePythonAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs ++ [final.toml];
     });
-
     # https://github.com/nix-community/poetry2nix/issues/218
     packaging = prev.packaging.overridePythonAttrs({buildInputs ? [], ...}: {
       format = "pyproject";
       buildInputs = buildInputs ++ [ final.flit-core ];
     });
-
     # https://github.com/nix-community/poetry2nix/issues/208
     #typeguard = prev.typeguard.overridePythonAttrs (old: {
     #  postPatch = ''

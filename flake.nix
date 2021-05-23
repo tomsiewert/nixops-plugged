@@ -1,60 +1,54 @@
 {
-  description = "NixOps with several plugins installed.";
+  description = "NixOps with batteries included.";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-  inputs.utils.url = "github:numtide/flake-utils";
-
-  inputs.flake-compat = {
-    url = "github:edolstra/flake-compat";
-    flake = false;
+  inputs = {
+    nixpkgs      = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
+    poetry2nix   = { url = "github:nix-community/poetry2nix"; };
+    flake-utils  = { url = "github:numtide/flake-utils"; };
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
   };
 
-  outputs = { self, flake-compat, nixpkgs, poetry2nix, utils, ... }: utils.lib.eachDefaultSystem (system:
-    let
+  outputs = { self, nixpkgs, poetry2nix, flake-utils, flake-compat, ... }:
+    flake-utils.lib.eachDefaultSystem (system: let
       pkgs            = import nixpkgs { inherit system; overlays = [poetry2nix.overlay]; };
       nixopsPluggable = import ./nixops-pluggable.nix pkgs;
 
       inherit (nixopsPluggable) overrides nixops;
+
     in rec {
 
-    defaultApp = {
-      type = "app";
-      program = "${packages.nixops-plugged}/bin/nixops";
-    };
+      defaultApp = { type = "app"; program = "${packages.nixops-plugged}/bin/nixops"; };
 
-    defaultPackage = packages.nixops-plugged;
+      defaultPackage = packages.nixops-plugged;
 
-    packages = {
-      # A nixops with all plugins included.
-      nixops-plugged = nixops.withPlugins (ps: [
-        ps.nixops-aws
-        ps.nixops-digitalocean
-        ps.nixops-gcp
-        ps.nixops-hetznercloud
-        #ps.nixops-virtd
-        ps.nixopsvbox
-      ]);
-      # A nixops with each plugin for users who use a single provider.
-      # Benefits from a much faster download/install.
-      nixops-aws = nixops.withPlugins (ps: [ps.nixops-aws]);
-      nixops-gcp = nixops.withPlugins (ps: [ps.nixops-gcp]);
-      nixops-digitalocean = nixops.withPlugins (ps: [ps.nixops-digitalocean]);
-      nixops-hetznercloud = nixops.withPlugins (ps: [ps.nixops-hetznercloud]);
-      #nixops-virtd = nixops.withPlugins (ps: [ps.nixops-virtd]);
-      nixopsvbox = nixops.withPlugins (ps: [ps.nixopsvbox]);
-    };
+      packages = {
+        # A nixops with all plugins included.
+        nixops-plugged = nixops.withPlugins (ps: [
+          ps.nixops-aws
+          ps.nixops-gcp
+          ps.nixops-digitalocean
+          ps.nixops-hetznercloud
+          ps.nixopsvbox
+        ]);
+        # A nixops with each plugin for users who use a single provider.
+        # Benefits from a much faster download/install.
+        nixops-aws          = nixops.withPlugins (ps: [ps.nixops-aws]);
+        nixops-gcp          = nixops.withPlugins (ps: [ps.nixops-gcp]);
+        nixops-digitalocean = nixops.withPlugins (ps: [ps.nixops-digitalocean]);
+        nixops-hetznercloud = nixops.withPlugins (ps: [ps.nixops-hetznercloud]);
+        nixopsvbox          = nixops.withPlugins (ps: [ps.nixopsvbox]);
+      };
 
-    devShell = pkgs.mkShell {
-      buildInputs = [
-        (pkgs.poetry2nix.mkPoetryEnv {
-          inherit overrides;
-          projectDir = ./.;
-        })
-        pkgs.poetry
-      ];
-    };
+      devShell = pkgs.mkShell {
+        buildInputs = [
+          pkgs.poetry
+          (pkgs.poetry2nix.mkPoetryEnv {
+            inherit overrides;
+            projectDir = ./.;
+          })
+        ];
+      };
 
 
-  });
+    });
 }
