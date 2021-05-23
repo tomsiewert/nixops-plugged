@@ -6,6 +6,7 @@ This flake aims to include any compatible plugins as they become available.
 Clone this repository and you can run nixops from inside the project root. This flake exports a Nix App, so running `nix run . -- <args>` is equivalent to running `nixops <args>`.
 
 ## Use as a flake input.
+To get 
 You can refer to this flake as input for another flake, i.e. inside the development environment for some flake packaging a NixOps network.
 ```nix
 {
@@ -26,7 +27,7 @@ You can refer to this flake as input for another flake, i.e. inside the developm
     });
 }
 ```
-While inside the development shell for your flake you will now have access to a fully(ish) featured nixops.
+While inside the development shell for your flake you will now have access to a fully(ish) featured `nixops`. If you just want a nixops with a *single* plugin, then this flake additionally exports packages for this use case too, i.e `nixops-plugged.packages.nixops-aws` to get a `nixops` with the `nixops-aws` plugin.
 
 | Plugins | Included |
 |:---|:---:|
@@ -39,7 +40,7 @@ While inside the development shell for your flake you will now have access to a 
 | [Proxmox][7]       | :x: |
 | [Virtd][8]         | :x: |
 
-To get a version of nixops with only the plugins you want, I would recommend forking this and following the instructions:
+To get a version of nixops with exactly the plugins you want, I would recommend forking this and following the instructions:
 ```bash
 λ nix develop
 λ vim pyproject.toml # add plugin to dependencies
@@ -51,7 +52,6 @@ You can run `nix run . -- list-plugins` to verify your changes.
 ## Use from legacy nix.
 The legacy commands `nix-build` and `nix-shell` should still work thanks to the compatability shim from [flake-compat](https://github.com/edolstra/flake-compat), although I don't use these so YMMV.
 
----
 [1]: https://github.com/NixOS/nixops-aws
 [2]: https://github.com/nix-community/nixops-digitalocean
 [3]: https://github.com/nix-community/nixops-gce
